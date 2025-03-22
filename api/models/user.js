@@ -1,34 +1,34 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true
+    required: true,
   },
   email: {
     type: String,
-    required: false
+    required: false,
   },
   major: {
     type: String,
-    required: false
+    required: false,
   },
   skills: {
-    type: [String],  // Example: ["Python", "React"]
-    required: false
+    type: [String], // Example: ["Python", "React"]
+    required: false,
   },
   interests: {
-    type: [String],  // Example: ["Gaming", "Hackathons"]
-    required: false
+    type: [String], // Example: ["Gaming", "Hackathons"]
+    required: false,
   },
   others: {
-    type: mongoose.Schema.Types.Mixed,  // flexible for any extra fields (e.g., LinkedIn, pronouns, etc.)
-    required: false
+    type: [String], // flexible for any extra fields (e.g., LinkedIn, pronouns, etc.)
+    required: false,
   },
   createdAt: {
     type: Date,
-    default: Date.now
-  }
+    default: Date.now,
+  },
 });
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model("User", userSchema);
