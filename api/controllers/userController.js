@@ -1,25 +1,20 @@
 const User = require("../models/user");
+const UserInfo = require("../models/userInfo");
 const runGemini = require("../utils/gemini");
 
 exports.registerUser = async (req, res) => {
   try {
-    const { email, name, major, skills, interests, others } = req.body;
-    const existing = await User.findOne({ email });
+    const { name, username, major, skills, interests, others } = req.body;
+    const validUser = await User.findOne({ username });
+    if (!validUser) return res.status(404).json({ error: "User not found" });
+    const existing = await UserInfo.findOne({ username });
     if (existing)
       return res.status(400).json({ message: "User already exists" });
 
-    const newUser = new User({
-      name,
-      email,
-      major,
-      skills: skills || [], // fallback in case undefined
-      interests: interests || [],
-      others: others || [],
-    });
-    await newUser.save();
+    const userProfile = await UserInfo.create({userId: validUser._id, username, major, skills: skills || [], interests: interests || [], others: others || []});
 
     // get other users
-    const existingUsers = await User.find({ _id: { $ne: newUser._id } });
+    const existingUsers = await UserInfo.find({ userId: { $ne: validUser._id } }).populate("userId");
 
     const prompt =
       `I am a new student who just registered:\n` +

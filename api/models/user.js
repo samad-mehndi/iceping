@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
-  name: {
+  username: {
     type: String,
     required: true,
   },
@@ -9,21 +9,9 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
-  major: {
+  password: {
     type: String,
-    required: false,
-  },
-  skills: {
-    type: [String], // Example: ["Python", "React"]
-    required: false,
-  },
-  interests: {
-    type: [String], // Example: ["Gaming", "Hackathons"]
-    required: false,
-  },
-  others: {
-    type: [String], // flexible for any extra fields (e.g., LinkedIn, pronouns, etc.)
-    required: false,
+    required: true,
   },
   createdAt: {
     type: Date,
